@@ -1,5 +1,6 @@
 import React from "react";
 import clsx from "clsx";
+import styles from "./text.module.css";
 
 type FontWeight = "regular" | "semibold" | "bold";
 type FontSize = "m" | "l" | "xl" | "2xl";
@@ -12,15 +13,24 @@ interface TextProps {
     children: React.ReactNode;
 }
 
-export const Text: React.FC<TextProps> = ({
+export const TextCastom: React.FC<TextProps> = ({
                                               as: Component = "p",
                                               weight = "regular",
                                               size = "m",
                                               className,
                                               children,
                                           }) => {
+    const normalizedSize = size === "2xl" ? "_2xl" : size;
+
     return (
-        <Component className={clsx(`text--${size}`, `text--${weight}`, className)}>
+        <Component
+            className={clsx(
+                styles.text,
+                styles[normalizedSize],
+                styles[weight],
+                className
+            )}
+        >
             {children}
         </Component>
     );

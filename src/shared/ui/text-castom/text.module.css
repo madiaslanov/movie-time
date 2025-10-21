@@ -1,12 +1,34 @@
 .text {
-    color: #1a1a1a;
+    color: #fff;
+    margin: 0;
 }
 
-.m { font-size: 1rem; }
-.l { font-size: 1.05rem; }
-.xl { font-size: 1.25rem; }
-.x2l { font-size: 1.5rem; }
 
-.regular { font-weight: 400; }
-.semibold { font-weight: 600; }
-.bold { font-weight: 700; }
+.m {
+    font-size: 0.90rem;
+}
+
+.l {
+    font-size: 1.25rem;
+}
+
+.xl {
+    font-size: 1.75rem;
+}
+
+._2xl {
+    font-size: 2.25rem;
+}
+
+
+.regular {
+    font-weight: 400;
+}
+
+.semibold {
+    font-weight: 500;
+}
+
+.bold {
+    font-weight: 600;
+}

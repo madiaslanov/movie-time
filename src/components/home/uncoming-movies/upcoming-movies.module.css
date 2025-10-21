@@ -1,0 +1,88 @@
+.container {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    overflow-x: auto; /* ✅ включаем горизонтальную прокрутку */
+    overflow-y: hidden;
+    position: relative;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox скрыть */
+}
+
+.container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge скрыть */
+}
+
+/* остальной код без изменений */
+.movieCard {
+    position: relative;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    flex-shrink: 0;
+    width: 20rem;
+    height: 30rem;
+    transition: all 0.4s ease-in-out;
+}
+
+.expandedCard {
+    position: relative;
+    z-index: 10;
+    width: 42rem;
+}
+
+.imageWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 0.5rem;
+}
+
+.movieImage {
+    width: 130%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.hiddenImage {
+    opacity: 0;
+    z-index: 1;
+}
+
+.visibleImage {
+    opacity: 1;
+    z-index: 2;
+}
+
+.overlayInfo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 3;
+}
+
+.expandedCard .overlayInfo {
+    opacity: 1;
+}
+
+.text h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.text p {
+    font-size: 0.9rem;
+    margin: 0;
+    opacity: 0.9;
+}

@@ -1,0 +1,50 @@
+.buttonStyle{
+    border: none;
+    background: none;
+    img{
+        width: 2rem;
+        height: 2rem;
+    }
+}
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    max-width: 1980px;
+    height: 3.5rem;
+    position: sticky;
+}
+.logo{
+    cursor: pointer;
+    width: 8rem;
+    height: auto;
+    align-self: center;
+}
+
+.leftSide{
+    display: flex;
+    ul{
+        list-style: none;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+    }
+    p {
+        cursor: pointer;
+        padding: 0.5rem;
+        border-radius: 1rem;
+    }
+    p:hover{
+        background-color: aliceblue;
+        color: #00050d;
+        transition: 0.2s;
+        border-radius: 1rem;
+        padding: 0.5rem;
+    }
+}
+.rightSide{
+    display: flex;
+    gap: 0.5rem;
+
+}

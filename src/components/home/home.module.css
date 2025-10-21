@@ -1,0 +1,23 @@
+.movieButtonRow{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+    padding-top: 2rem;
+    .topMovie{
+        cursor: default;
+    }
+    button{
+        background: none;
+        border: none;
+        display: flex;
+        align-items: center;
+        position: relative;
+        img{
+            position: absolute;
+            width: 1.5rem;
+            height: auto;
+            right: -15px;
+            top: 0.5px;
+        }
+    }
+}

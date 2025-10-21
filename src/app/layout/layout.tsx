@@ -1,9 +1,13 @@
-import { Outlet } from "react-router-dom";
+import {Outlet} from "react-router-dom";
+import Header from "../../components/header/header";
+import style from "./layout.module.css"
+
 
 export const Layout = () => {
     return (
-        <div style={{ fontFamily: "sans-serif", padding: "20px" }}>
-                <Outlet />
+        <div className={style.container}>
+            <Header/>
+            <Outlet/>
         </div>
     );
 };

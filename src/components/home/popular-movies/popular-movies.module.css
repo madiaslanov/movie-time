@@ -1,0 +1,64 @@
+.container {
+    display: flex;
+    padding: 1rem 0;
+    gap: 1.5rem;
+    flex-direction: row;
+    width: 1640px;
+    height: 22rem;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    scroll-margin: 5rem;
+}
+
+.movieCard {
+    position: relative;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform-origin: center center;
+    width: 23vw;
+}
+
+.movieCard:hover {
+    transform: scale(1.05);
+    z-index: 10;
+}
+
+.movieCard img {
+    width: 23vw;
+    border-radius: 0.5rem;
+}
+
+
+.infoBox {
+    position: static;
+    cursor: default;
+    margin-top: 0.5rem;
+    padding: 0.5rem;
+    background: rgba(0, 5, 13, 0.8);
+    color: white;
+    border-radius: 0.5rem;
+
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.movieCard:hover .infoBox {
+    opacity: 1;
+    max-height: 10rem;
+}
+
+.overviewText {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+}

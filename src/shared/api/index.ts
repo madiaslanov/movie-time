@@ -90,5 +90,5 @@ export const getMovieDetails = async (movie_id:number | undefined) => {
     }
 
     const data = await response.json();
-    return data.results;
+    return data;
 };

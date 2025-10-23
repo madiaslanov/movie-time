@@ -1,0 +1,211 @@
+/* Основной контейнер */
+.container {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    color: #fff;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Скрываем части фона, которые выходят за пределы */
+}
+
+/* Фоновое изображение */
+.backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: blur(10px) brightness(0.4); /* Размытие и затемнение фона */
+    transform: scale(1.1); /* Немного увеличить, чтобы скрыть края после размытия */
+    z-index: 1;
+}
+
+/* Контент поверх фона */
+.content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    gap: 40px;
+    max-width: 1200px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* Полупрозрачный фон для читаемости */
+    padding: 30px;
+    border-radius: 12px;
+    backdrop-filter: blur(5px); /* Дополнительный эффект "матового стекла" */
+}
+
+/* Левая колонка с постером */
+.poster {
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+}
+
+.poster img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.noPoster {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    background-color: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #888;
+    border-radius: 8px;
+    border: 2px dashed #444;
+}
+
+
+/* Правая колонка с деталями */
+.details {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+.details h1 {
+    font-size: 2.8rem;
+    margin: 0;
+    line-height: 1.1;
+}
+
+.details h1 span {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: #ccc;
+}
+
+.tagline {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #b0b0b0;
+    margin: 10px 0 20px;
+    border-left: 3px solid #e50914;
+    padding-left: 15px;
+}
+
+.genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.genreTag {
+    background-color: #333;
+    color: #eee;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.genreTag:hover {
+    background-color: #e50914;
+}
+
+.details h3 {
+    font-size: 1.4rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 5px;
+}
+
+.overview {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+}
+
+.infoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.infoGrid strong {
+    display: block;
+    color: #999;
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+}
+
+.infoGrid p {
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+.companies {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+}
+
+.company {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60px;
+}
+
+.company img {
+    max-height: 40px;
+    max-width: 120px;
+    filter: contrast(0) brightness(1.5); /* Инвертирует логотипы для лучшего вида на темном фоне */
+}
+.company span {
+    color: #111;
+    font-weight: bold;
+}
+
+/* Сообщения о статусе (загрузка, ошибка) */
+.statusMessage {
+    font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+    padding: 50px;
+}
+
+.error {
+    color: #ff4c4c;
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid #ff4c4c;
+    border-radius: 8px;
+}
+
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .content {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .poster {
+        max-width: 100%;
+        width: 60%;
+        margin: 0 auto;
+    }
+
+    .details h1 {
+        font-size: 2.2rem;
+    }
+}

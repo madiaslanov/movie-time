@@ -1,7 +1,8 @@
-import { useState } from "react";
-import { IMAGE_BASE_URL } from "../../../shared/ui/image-url.ts";
-import { useUpcomingMovie } from "../../../shared/hooks/useUpcomingMovie/useUpcomingMovie.ts";
+import {useState} from "react";
+import {IMAGE_BASE_URL} from "../../../shared/ui/image-url.ts";
+import {useUpcomingMovie} from "../../../shared/hooks/useUpcomingMovie/useUpcomingMovie.ts";
 import styles from "./upcoming-movies.module.css";
+import {useNavigate} from "react-router-dom";
 
 interface Movie {
     id: number;
@@ -15,15 +16,15 @@ interface Movie {
 
 const UpcomingMovies = () => {
     const [hoveredId, setHoveredId] = useState<number | null>(null);
-    const { data: movies, isLoading, isError } = useUpcomingMovie();
-
+    const {data: movies, isLoading, isError} = useUpcomingMovie();
+    const navigate = useNavigate();
     if (isLoading) return <div>Loading...</div>;
     if (isError || !movies) return <div>Error loading movies.</div>;
 
 
     return (
         <div className={styles.container}>
-            {movies.map((movie:Movie) => {
+            {movies.map((movie: Movie) => {
                 const isHovered = hoveredId === movie.id;
                 return (
                     <div
@@ -31,6 +32,7 @@ const UpcomingMovies = () => {
                         className={`${styles.movieCard} ${isHovered ? styles.expandedCard : ""}`}
                         onMouseEnter={() => setHoveredId(movie.id)}
                         onMouseLeave={() => setHoveredId(null)}
+                        onClick={() => navigate(`movie/${movie.id}`)}
                     >
                         <div className={styles.imageWrapper}>
                             <img
@@ -47,6 +49,14 @@ const UpcomingMovies = () => {
                                 <div className={styles.overlayInfo}>
                                     <div className={styles.text}>
                                         <h3>{movie.title}</h3>
+                                        <div className={styles.descriptionButtons}>
+                                            <button>
+                                                Подробнее
+                                            </button>
+                                            <button>
+                                                +
+                                            </button>
+                                        </div>
                                         <p>⭐ {movie.vote_average}</p>
                                         <p>{movie.release_date}</p>
                                     </div>

@@ -69,14 +69,64 @@
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
     z-index: 3;
+
 }
 
 .expandedCard .overlayInfo {
     opacity: 1;
 }
+.text{
+    display: flex;
+    gap: 1rem;
+    flex-direction: column;
+}
+.descriptionButtons{
+    display: flex;
+    flex-direction: row;
+    gap: 2rem;
+}
+.descriptionButtons > button:first-child {
+    background-color: rgba(153, 153, 153, 0.3) !important;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    border: none;
+    color: #f1f1f1;
+    transition: 0.2s ease-in-out;
+}
+
+.descriptionButtons > button:first-child:hover {
+    background-color: #f1f1f1 !important;
+    color:  #00050d ;
+}
+
+.descriptionButtons > button:last-child {
+    background-color: rgba(153, 153, 153, 0.3) !important;
+    font-size: 1.5rem;
+    border-radius: 100%;
+    font-weight: bold;
+    width: 4rem;
+    height: 4rem;
+    padding: 1rem 2rem;
+    border: none;
+    color: #f1f1f1;
+    transition: 0.2s ease-in-out;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.descriptionButtons > button:last-child:hover {
+    background-color: #f1f1f1 !important;
+    color:  #00050d ;
+}
+
+
 
 .text h3 {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 0.3rem;
 }

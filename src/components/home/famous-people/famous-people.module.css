@@ -1,0 +1,79 @@
+
+.containerWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    display: flex;
+    gap: 1.5rem;
+    padding: 2rem 1rem;
+    width: 100%;
+    max-width: 1640px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+
+.container::-webkit-scrollbar {
+    display: none;
+}
+
+.peopleCard {
+    position: relative;
+    flex-shrink: 0;
+    width: 200px;
+    height: 300px;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.peopleCard:hover {
+    transform: scale(1.05);
+    z-index: 10;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.peopleCard img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.noImage {
+    font-size: 5rem;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.infoBox {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0, 5, 13, 0.95) 0%, rgba(0, 5, 13, 0) 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.peopleCard:hover .infoBox {
+    opacity: 1;
+    transform: translateY(0);
+}

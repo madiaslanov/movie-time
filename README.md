@@ -1,73 +1,40 @@
-# React + TypeScript + Vite
+# 🎬 Movie Time
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Movie Time** — это современное веб-приложение для просмотра фильмов и информации о них.  
+Создано с использованием **React**, **TypeScript**, **Vite**, **TanStack Query**, **Zustand** и **React Router**.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Основные возможности
 
-## React Compiler
+- 🔥 Просмотр популярных фильмов
+- 🧭 Детальная страница фильма (`/movie/:id`)
+- ⚡ Асинхронная загрузка данных через **TanStack Query**
+- 🧠 Глобальное состояние с **Zustand**
+- 🧩 Чистая архитектура и разделение компонентов
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🧱 Технологии
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Категория | Используемые технологии |
+|------------|--------------------------|
+| Frontend | React 19, TypeScript |
+| Routing | React Router DOM v7 |
+| Data Fetching | TanStack React Query |
+| State Management | Zustand |
+| Build Tool | Vite |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+# 1. Клонируй репозиторий
+git clone https://github.com/username/movie-time.git
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# 2. Перейди в папку проекта
+cd movie-time
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# 3. Установи зависимости
+npm install
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+# 4. Запусти проект в режиме разработки
+npm run dev

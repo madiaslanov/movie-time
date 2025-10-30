@@ -30,18 +30,40 @@
         gap: 1rem;
         align-items: center;
     }
-    p {
+    li a {
         cursor: pointer;
         padding: 0.5rem;
-        border-radius: 1rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        color: #fff;
+        transition: 0.2s;
+        border-top: 2px solid transparent;
+
     }
-    p:hover{
+    li a:hover{
         background-color: aliceblue;
         color: #00050d;
         transition: 0.2s;
-        border-radius: 1rem;
+        border-radius: 0.5rem;
         padding: 0.5rem;
     }
+}
+
+.activeLink {
+
+    background: hsla(0, 0%, 100%, .15);
+
+
+    border-image-source: linear-gradient(90deg, hsla(0, 0%, 100%, 0) 10%, hsla(0, 0%, 100%, 0.45) 50%, hsla(0, 0%, 100%, 0) 90%);
+    border-image-slice: 1;
+
+    box-shadow: 0 -4px 16px 0 rgba(255, 255, 255, 0.1);
+}
+
+.activeLink:hover {
+    color: #fff;
+
+    filter: brightness(1.2);
 }
 .rightSide{
     display: flex;

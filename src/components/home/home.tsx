@@ -1,4 +1,4 @@
-import {TextCastom} from "../../shared/ui/text-castom/text-castom.tsx";
+import {TextCustom} from "../../shared/ui/text-custom/text-custom.tsx";
 import styles from "./home.module.css"
 import PopularMovies from "./popular-movies/popular-movies.tsx";
 import UpcomingMovies from "./uncoming-movies/upcoming-movies.tsx";
@@ -8,36 +8,36 @@ const Home = () => {
     return (
         <div className={styles.container}>
             <div className={styles.movieButtonRow}>
-                <TextCastom size="l" weight="regular" className={styles.topMovie}>
+                <TextCustom size="l" weight="regular" className={styles.topMovie}>
                     Топ Фильмы
-                </TextCastom>
+                </TextCustom>
                 <button>
-                    <TextCastom size="l" weight="regular">
+                    <TextCustom size="l" weight="regular">
                         Смотреть больше <img src="/next-page-icon.png" alt=""/>
-                    </TextCastom>
+                    </TextCustom>
                 </button>
             </div>
 
             <PopularMovies/>
             <div className={styles.movieButtonRow}>
-                <TextCastom size="l" weight="regular" className={styles.topMovie}>
+                <TextCustom size="l" weight="regular" className={styles.topMovie}>
                     Новинки от Movie-Time
-                </TextCastom>
+                </TextCustom>
                 <button>
-                    <TextCastom size="l" weight="regular">
+                    <TextCustom size="l" weight="regular">
                         Смотреть больше <img src="/next-page-icon.png" alt=""/>
-                    </TextCastom>
+                    </TextCustom>
                 </button>
             </div>
             <UpcomingMovies/>
             <div className={styles.movieButtonRow}>
-                <TextCastom size="l" weight="regular" className={styles.topMovie}>
+                <TextCustom size="l" weight="regular" className={styles.topMovie}>
                     Популярные Актеры
-                </TextCastom>
+                </TextCustom>
                 <button>
-                    <TextCastom size="l" weight="regular">
+                    <TextCustom size="l" weight="regular">
                         Смотреть больше <img src="/next-page-icon.png" alt=""/>
-                    </TextCastom>
+                    </TextCustom>
                 </button>
             </div>
             <FamousPeople/>

@@ -1,0 +1,145 @@
+/* all-movies.module.css */
+
+.container {
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+    color: #fff;
+}
+
+.pageTitle {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: #e5e5e5;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.movieGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 2rem;
+}
+
+.movieCard {
+    position: relative;
+    background-color: #1e1e1e;
+    border-radius: 10px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.movieCard:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+}
+
+.poster {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.cardInfo {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 20%, transparent);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.movieCard:hover .cardInfo {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cardTitle {
+    font-size: 1.1rem;
+    margin: 0 0 0.25rem 0;
+    color: #fff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cardDate {
+    font-size: 0.8rem;
+    color: #a0a0a0;
+    margin: 0;
+}
+
+.rating {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1rem;
+    color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    border: 2px solid rgba(0,0,0,0.3);
+}
+
+.ratingGood { background-color: #28a745; }
+.ratingMedium { background-color: #ffc107; }
+.ratingBad { background-color: #dc3545; }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    gap: 1rem;
+}
+
+.pageButton {
+    background-color: #252525;
+    color: #e5e5e5;
+    border: 1px solid #444;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.pageButton:hover:not(:disabled) {
+    background-color: #e50914;
+    border-color: #e50914;
+    transform: translateY(-2px);
+}
+
+.pageButton:disabled {
+    background-color: #1a1a1a;
+    color: #555;
+    cursor: not-allowed;
+}
+
+.pageInfo {
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.loader, .error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    font-size: 1.5rem;
+    color: #e5e5e5;
+}
+
+.error {
+    color: #e50914;
+}

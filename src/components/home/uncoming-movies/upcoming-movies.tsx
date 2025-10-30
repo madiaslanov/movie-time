@@ -32,7 +32,6 @@ const UpcomingMovies = () => {
                         className={`${styles.movieCard} ${isHovered ? styles.expandedCard : ""}`}
                         onMouseEnter={() => setHoveredId(movie.id)}
                         onMouseLeave={() => setHoveredId(null)}
-                        onClick={() => navigate(`movie/${movie.id}`)}
                     >
                         <div className={styles.imageWrapper}>
                             <img
@@ -44,13 +43,16 @@ const UpcomingMovies = () => {
                                 src={IMAGE_BASE_URL + movie.backdrop_path}
                                 alt={movie.title}
                                 className={`${styles.movieImage} ${isHovered ? styles.visibleImage : styles.hiddenImage}`}
+                                onClick={() => navigate(`movie/${movie.id}`)}
                             />
                             {isHovered && (
                                 <div className={styles.overlayInfo}>
                                     <div className={styles.text}>
                                         <h3>{movie.title}</h3>
                                         <div className={styles.descriptionButtons}>
-                                            <button>
+                                            <button
+                                                onClick={() => navigate(`movie/${movie.id}`)}
+                                            >
                                                 Подробнее
                                             </button>
                                             <button>

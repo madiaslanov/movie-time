@@ -1,8 +1,9 @@
 import styles from "./popular-movies.module.css";
 import { useMovies } from "../../../shared/hooks/useMovie/useMovie.ts";
 import { useRef, useEffect } from "react";
-import { TextCastom } from "../../../shared/ui/text-castom/text-castom.tsx";
+import { TextCustom } from "../../../shared/ui/text-custom/text-custom.tsx";
 import { IMAGE_BASE_URL } from "../../../shared/ui/image-url.ts";
+import {useNavigate} from "react-router-dom";
 
 interface popularMovieType {
     id: number;
@@ -13,9 +14,9 @@ interface popularMovieType {
 }
 
 const PopularMovies = () => {
-    const { data: movies, isLoading, error } = useMovies();
+    const { data: movies, isLoading, error } = useMovies(page);
     const containerRef = useRef<HTMLDivElement | null>(null);
-
+    const navigate = useNavigate();
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
@@ -51,19 +52,20 @@ const PopularMovies = () => {
                             <img
                                 src={IMAGE_BASE_URL + `${movie.backdrop_path}`}
                                 alt={`Постер фильма ${movie.title || movie.name}`}
+                                onClick={() => navigate(`movie/${movie.id}`)}
                             />
                             <div className={styles.infoBox}>
-                                <TextCastom size="l" weight="bold">
+                                <TextCustom size="l" weight="bold">
                                     {movie.title || movie.name}
-                                </TextCastom>
+                                </TextCustom>
                                 {movie.overview && (
-                                    <TextCastom
+                                    <TextCustom
                                         size="m"
                                         weight="regular"
                                         className={styles.overviewText}
                                     >
                                         {movie.overview}
-                                    </TextCastom>
+                                    </TextCustom>
                                 )}
                             </div>
                         </div>

@@ -1,7 +1,8 @@
 import styles from "./famous-people.module.css";
 import { usePeople } from "../../../shared/hooks/usePeople/usePeople.ts";
 import { IMAGE_BASE_URL } from "../../../shared/ui/image-url.ts";
-import { TextCastom } from "../../../shared/ui/text-castom/text-castom.tsx";
+import { TextCustom } from "../../../shared/ui/text-custom/text-custom.tsx";
+import { useNavigate } from "react-router-dom";
 
 interface PeopleState {
     name: string;
@@ -12,7 +13,7 @@ interface PeopleState {
 
 const FamousPeople = () => {
     const { data: famousPeople, isLoading, error } = usePeople();
-
+    const navigate = useNavigate();
     if (isLoading) {
         return <div>Загрузка...</div>;
     }
@@ -34,18 +35,19 @@ const FamousPeople = () => {
                                 src={IMAGE_BASE_URL + people.profile_path}
                                 alt={people.name || "famous person"}
                                 loading="lazy"
+                                onClick={()=> navigate(`people/${people.id}`)}
                             />
                         ) : (
                             <div className={styles.noImage}>?</div>
                         )}
 
                         <div className={styles.infoBox}>
-                            <TextCastom size="l" weight="bold">
+                            <TextCustom size="l" weight="bold">
                                 {people.name}
-                            </TextCastom>
-                            <TextCastom size="m">
+                            </TextCustom>
+                            <TextCustom size="m">
                                 {people.known_for_department}
-                            </TextCastom>
+                            </TextCustom>
                         </div>
                     </div>
                 ))}

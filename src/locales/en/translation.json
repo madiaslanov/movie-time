@@ -1,0 +1,27 @@
+{
+  "header": {
+    "home": "Home",
+    "movies": "Movies",
+    "actors": "Actors",
+    "favorites": "Favorites",
+    "profile": "Profile",
+    "login": "Log In",
+    "logout": "Log Out"
+  },
+  "home": {
+    "popularMovies": "Popular Movies",
+    "upcomingMovies": "Upcoming Movies",
+    "famousPeople": "Famous People",
+    "seeMore": "See More"
+  },
+  "allMovies": {
+    "title": "All Movies",
+    "loading": "Loading...",
+    "error": "Error loading data",
+    "noMovies": "No movies found.",
+    "searchPlaceholder": "Search for movies...",
+    "prevPage": "Previous",
+    "nextPage": "Next",
+    "pageInfo": "Page {{currentPage}} of {{totalPages}}"
+  }
+}

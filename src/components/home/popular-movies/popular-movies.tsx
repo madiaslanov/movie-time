@@ -1,22 +1,17 @@
 import styles from "./popular-movies.module.css";
-import { useMovies } from "../../../shared/hooks/useMovie/useMovie.ts";
-import { useRef, useEffect } from "react";
-import { TextCustom } from "../../../shared/ui/text-custom/text-custom.tsx";
-import { IMAGE_BASE_URL } from "../../../shared/ui/image-url.ts";
+import {useMovies} from "../../../shared/hooks/useMovie/useMovie.ts";
+import {useRef, useEffect} from "react";
+import {TextCustom} from "../../../shared/ui/text-custom/text-custom.tsx";
+import {IMAGE_BASE_URL} from "../../../shared/ui/image-url.ts";
 import {useNavigate} from "react-router-dom";
-
-interface popularMovieType {
-    id: number;
-    title: string;
-    backdrop_path: string;
-    overview: string;
-    name: string;
-}
+import type {IMovie} from "../../../shared/types/types.ts";
 
 const PopularMovies = () => {
-    const { data: movies, isLoading, error } = useMovies(page);
+
+    const {data: moviesResponse, isLoading, error} = useMovies(1, '');
     const containerRef = useRef<HTMLDivElement | null>(null);
     const navigate = useNavigate();
+
     useEffect(() => {
         const container = containerRef.current;
         if (!container) return;
@@ -26,7 +21,7 @@ const PopularMovies = () => {
                 container.scrollLeft += e.deltaY;
             }
         };
-        container.addEventListener('wheel', handleWheel, { passive: false });
+        container.addEventListener('wheel', handleWheel, {passive: false});
         return () => {
             container.removeEventListener('wheel', handleWheel);
         };
@@ -46,17 +41,18 @@ const PopularMovies = () => {
                 ref={containerRef}
                 className={styles.container}
             >
-                {movies?.map((movie: popularMovieType) => (
+                {/* 2. Исправлен маппинг: используем moviesResponse.results */}
+                {moviesResponse?.results.map((movie: IMovie) => (
                     <div key={movie.id} className={styles.movieCard}>
                         <div className={styles.cardContent}>
                             <img
                                 src={IMAGE_BASE_URL + `${movie.backdrop_path}`}
-                                alt={`Постер фильма ${movie.title || movie.name}`}
+                                alt={`Постер фильма ${movie.title}`}
                                 onClick={() => navigate(`movie/${movie.id}`)}
                             />
                             <div className={styles.infoBox}>
                                 <TextCustom size="l" weight="bold">
-                                    {movie.title || movie.name}
+                                    {movie.title}
                                 </TextCustom>
                                 {movie.overview && (
                                     <TextCustom

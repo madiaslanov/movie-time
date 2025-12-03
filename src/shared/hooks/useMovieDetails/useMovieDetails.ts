@@ -1,9 +1,14 @@
 import {useQuery} from "@tanstack/react-query";
-import {getMovieDetails} from "../../api";
-
+import {getMovieDetails} from "../../../services/movieService.ts";
 
 export const useMovieDetails = (id: number | undefined) => useQuery({
     queryKey: ['movieDetails', id],
-    queryFn: async () => getMovieDetails(id),
-    enabled: !!id
-})
+    // Добавляем проверку, чтобы TypeScript был уверен, что id - это число
+    queryFn: async () => {
+        if (id === undefined) {
+            throw new Error("Movie ID is required");
+        }
+        return getMovieDetails(id);
+    },
+    enabled: !!id, // Запрос выполняется, только если id существует
+});

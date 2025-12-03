@@ -1,5 +1,5 @@
 import {useQuery} from "@tanstack/react-query";
-import { getPeople } from "../../api";
+import {getPeople} from "../../../services/movieService.ts";
 
 
 export const usePeople = () => useQuery({

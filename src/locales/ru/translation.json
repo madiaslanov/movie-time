@@ -1,0 +1,27 @@
+{
+  "header": {
+    "home": "Главная",
+    "movies": "Фильмы",
+    "actors": "Актеры",
+    "favorites": "Избранное",
+    "profile": "Профиль",
+    "login": "Войти",
+    "logout": "Выйти"
+  },
+  "home": {
+    "popularMovies": "Популярные фильмы",
+    "upcomingMovies": "Скоро в кино",
+    "famousPeople": "Популярные актеры",
+    "seeMore": "Смотреть больше"
+  },
+  "allMovies": {
+    "title": "Все фильмы",
+    "loading": "Загрузка...",
+    "error": "Ошибка загрузки данных",
+    "noMovies": "Фильмы не найдены.",
+    "searchPlaceholder": "Искать фильмы...",
+    "prevPage": "Назад",
+    "nextPage": "Вперед",
+    "pageInfo": "Страница {{currentPage}} из {{totalPages}}"
+  }
+}

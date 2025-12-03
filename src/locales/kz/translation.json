@@ -1,0 +1,27 @@
+{
+  "header": {
+    "home": "Басты бет",
+    "movies": "Фильмдер",
+    "actors": "Актерлер",
+    "favorites": "Таңдаулылар",
+    "profile": "Профиль",
+    "login": "Кіру",
+    "logout": "Шығу"
+  },
+  "home": {
+    "popularMovies": "Танымал фильмдер",
+    "upcomingMovies": "Жақында шығады",
+    "famousPeople": "Танымал актерлер",
+    "seeMore": "Көбірек көру"
+  },
+  "allMovies": {
+    "title": "Барлық фильмдер",
+    "loading": "Жүктеу...",
+    "error": "Деректерді жүктеу қатесі",
+    "noMovies": "Фильмдер табылмады.",
+    "searchPlaceholder": "Фильмдерді іздеу...",
+    "prevPage": "Артқа",
+    "nextPage": "Алға",
+    "pageInfo": "{{totalPages}} ішінен {{currentPage}} бет"
+  }
+}

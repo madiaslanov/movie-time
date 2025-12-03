@@ -1,72 +1,115 @@
-.buttonStyle{
-    border: none;
-    background: none;
-    img{
-        width: 2rem;
-        height: 2rem;
-    }
-}
-.container{
+.container {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-top: 1rem;
-    max-width: 1980px;
-    height: 3.5rem;
+    padding: 1rem 2rem;
     position: sticky;
+    top: 0;
+    background-color: #00050d;
+    z-index: 100;
 }
-.logo{
+
+.logo {
     cursor: pointer;
     width: 8rem;
     height: auto;
-    align-self: center;
 }
 
-.leftSide{
+.leftSide {
     display: flex;
-    ul{
-        list-style: none;
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-    }
-    li a {
-        cursor: pointer;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        text-decoration: none;
-        color: #fff;
-        transition: 0.2s;
-        border-top: 2px solid transparent;
+    align-items: center;
+    gap: 2rem;
+}
 
-    }
-    li a:hover{
-        background-color: aliceblue;
-        color: #00050d;
-        transition: 0.2s;
-        border-radius: 0.5rem;
-        padding: 0.5rem;
-    }
+.leftSide ul {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+}
+
+.navLink {
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    color: #fff;
+    transition: background-color 0.2s, color 0.2s;
+    font-weight: 500;
+}
+
+.navLink:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .activeLink {
-
     background: hsla(0, 0%, 100%, .15);
-
-
-    border-image-source: linear-gradient(90deg, hsla(0, 0%, 100%, 0) 10%, hsla(0, 0%, 100%, 0.45) 50%, hsla(0, 0%, 100%, 0) 90%);
-    border-image-slice: 1;
-
-    box-shadow: 0 -4px 16px 0 rgba(255, 255, 255, 0.1);
+    color: #e50914;
+    font-weight: 700;
 }
 
-.activeLink:hover {
+.rightSide {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.searchInput {
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 5px;
     color: #fff;
-
-    filter: brightness(1.2);
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
 }
-.rightSide{
+
+.buttonStyle {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.profileIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.authButton {
+    background-color: #e50914;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.authButton:hover {
+    background-color: #f6121d;
+}
+
+.languageSwitcher {
     display: flex;
     gap: 0.5rem;
+}
 
+.languageSwitcher button {
+    background: none;
+    border: 1px solid #555;
+    color: #fff;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.languageSwitcher button:disabled {
+    color: #e50914;
+    border-color: #e50914;
+    cursor: default;
 }

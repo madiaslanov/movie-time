@@ -1,14 +1,11 @@
-import {useQuery} from "@tanstack/react-query";
-import {getMovies} from "../../api";
+import {keepPreviousData, useQuery} from "@tanstack/react-query";
+import {getMovies} from "../../../services/movieService.ts";
 import type {IMoviesResponse} from "../../types/types.ts";
 
-
-export const useMovies = (page: number) => {
+export const useMovies = (page: number, query: string) => {
     return useQuery<IMoviesResponse, Error>({
-        queryKey: ['movies', page],
-
-        queryFn: () => getMovies(page),
-
-        keepPreviousData: true,
+        queryKey: ['movies', page, query],
+        queryFn: () => getMovies(page, query),
+        placeholderData: keepPreviousData
     });
-}
+};

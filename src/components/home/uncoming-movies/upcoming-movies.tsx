@@ -1,30 +1,42 @@
 import {useState} from "react";
 import {IMAGE_BASE_URL} from "../../../shared/ui/image-url.ts";
 import {useUpcomingMovie} from "../../../shared/hooks/useUpcomingMovie/useUpcomingMovie.ts";
+import {useFavorites} from "../../../shared/hooks/useFavorites/useFavorites.ts";
 import styles from "./upcoming-movies.module.css";
 import {useNavigate} from "react-router-dom";
+import {useAuthStore} from "../../../store/auth-store.ts";
+import type {IMovie} from "../../../shared/types/types.ts"; // Используем общий тип IMovie
 
-interface Movie {
-    id: number;
-    title: string;
-    poster_path: string;
-    backdrop_path: string;
-    overview: string;
-    vote_average: number;
-    release_date: string;
-}
+// Компонент для кнопки "Избранное", чтобы избежать лишних ре-рендеров
+const FavoriteButton = ({movieId}: { movieId: number }) => {
+    const {isFavorite, toggleFavorite} = useFavorites();
+    const isAuth = useAuthStore((state) => state.isAuthenticated);
+
+    // Не показываем кнопку, если пользователь не авторизован
+    if (!isAuth) return null;
+
+    return (
+        <button
+            className={`${styles.favButton} ${isFavorite(movieId) ? styles.isFavorite : ''}`}
+            onClick={() => toggleFavorite(movieId)}
+        >
+            {isFavorite(movieId) ? '❤️' : '🤍'}
+        </button>
+    );
+};
+
 
 const UpcomingMovies = () => {
     const [hoveredId, setHoveredId] = useState<number | null>(null);
     const {data: movies, isLoading, isError} = useUpcomingMovie();
     const navigate = useNavigate();
+
     if (isLoading) return <div>Loading...</div>;
     if (isError || !movies) return <div>Error loading movies.</div>;
 
-
     return (
         <div className={styles.container}>
-            {movies.map((movie: Movie) => {
+            {movies.map((movie: IMovie) => { // Используем тип IMovie
                 const isHovered = hoveredId === movie.id;
                 return (
                     <div
@@ -55,11 +67,10 @@ const UpcomingMovies = () => {
                                             >
                                                 Подробнее
                                             </button>
-                                            <button>
-                                                +
-                                            </button>
+                                            {/* Отдельный компонент кнопки */}
+                                            <FavoriteButton movieId={movie.id}/>
                                         </div>
-                                        <p>⭐ {movie.vote_average}</p>
+                                        <p>⭐ {(movie.vote_average).toFixed(1)}</p>
                                         <p>{movie.release_date}</p>
                                     </div>
                                 </div>

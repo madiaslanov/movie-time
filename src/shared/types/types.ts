@@ -5,7 +5,7 @@ export interface IMovie {
     release_date: string;
     vote_average: number;
     overview: string;
-    // Добавьте другие поля, если они вам нужны
+    backdrop_path: string | null;
 }
 
 export interface IMoviesResponse {

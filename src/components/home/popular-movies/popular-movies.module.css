@@ -6,24 +6,34 @@
 
 .container {
     display: flex;
-    gap: 1.5rem;
-    padding: 2rem 1rem;
+    gap: 1rem; /* Немного уменьшим гэп */
+    /* ✅ ВАЖНО: Добавляем вертикальные отступы, чтобы было место для увеличения */
+    padding: 4rem 1rem;
     width: 100%;
-    height: 100%;
     max-width: 1640px;
     overflow-x: auto;
+    overflow-y: hidden; /* ✅ Прячем вертикальный скроллбар, если он вдруг появится */
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
+
 .container::-webkit-scrollbar {
     display: none;
 }
 
+/* ✅ Добавляем стили для Link, чтобы сбросить стандартное поведение */
+.movieLink {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    flex-shrink: 0; /* ✅ Важно для корректной работы в flex-контейнере */
+}
+
 .movieCard {
     position: relative;
-    flex-shrink: 0;
     width: 400px;
     aspect-ratio: 16 / 9;
+    /* Убираем flex-shrink отсюда, так как он теперь на ссылке */
 }
 
 .cardContent {
@@ -31,17 +41,21 @@
     top: 0;
     left: 0;
     width: 100%;
-
+    height: 100%; /* ✅ Задаем высоту, чтобы overflow работал */
     background: #141414;
     border-radius: 0.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-
     transform-origin: center center;
-    transition: transform 0.3s ease;
+    /* ✅ Делаем переход более плавным */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     z-index: 5;
+    /* ✅ КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ: Прячем все, что выходит за скругленные углы */
+    overflow: hidden;
+    display: flex; /* Используем flex для позиционирования infoBox */
+    flex-direction: column;
 }
 
-.movieCard:hover .cardContent {
+.movieLink:hover .cardContent { /* ✅ Применяем hover к Link */
     transform: scale(1.25);
     z-index: 10;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
@@ -50,19 +64,22 @@
 .cardContent img {
     width: 100%;
     height: auto;
+    object-fit: cover;
     display: block;
+    flex-shrink: 0;
 }
 
 .infoBox {
     padding: 1rem;
     background-color: #141414;
-    z-index: 10;
+    margin-top: auto; /* Прижимает этот блок к низу */
     max-height: 0;
     opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
+    /* ✅ Добавляем небольшую задержку для плавности появления */
+    transition: max-height 0.4s ease 0.1s, opacity 0.4s ease 0.1s;
 }
 
-.movieCard:hover .infoBox {
+.movieLink:hover .infoBox {
     max-height: 200px;
     opacity: 1;
 }
@@ -75,4 +92,5 @@
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.4;
+    color: #b3b3b3;
 }

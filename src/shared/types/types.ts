@@ -14,3 +14,13 @@ export interface IMoviesResponse {
     total_pages: number;
     total_results: number;
 }
+export interface LoginForm {
+    email: string;
+    password: string;
+}
+
+// Тип для формы регистрации
+export interface SignupForm {
+    email: string;
+    password: string;
+}

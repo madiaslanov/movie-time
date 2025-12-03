@@ -1,7 +1,8 @@
 import style from './header.module.css';
 import { NavLink, useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../store/auth-store.ts";
+
 import { useTranslation } from "react-i18next";
+import {useAuthStore} from "../../store/auth-store.ts";
 
 const Header = () => {
     const navigate = useNavigate();

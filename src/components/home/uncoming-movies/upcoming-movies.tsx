@@ -4,8 +4,9 @@ import {useUpcomingMovie} from "../../../shared/hooks/useUpcomingMovie/useUpcomi
 import {useFavorites} from "../../../shared/hooks/useFavorites/useFavorites.ts";
 import styles from "./upcoming-movies.module.css";
 import {useNavigate} from "react-router-dom";
+import type {IMovie} from "../../../shared/types/types.ts";
 import {useAuthStore} from "../../../store/auth-store.ts";
-import type {IMovie} from "../../../shared/types/types.ts"; // Используем общий тип IMovie
+
 
 // Компонент для кнопки "Избранное", чтобы избежать лишних ре-рендеров
 const FavoriteButton = ({movieId}: { movieId: number }) => {

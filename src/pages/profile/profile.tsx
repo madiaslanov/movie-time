@@ -1,5 +1,6 @@
-import { useAuthStore } from '../../store/auth-store.ts';
+
 import styles from './profile.module.css';
+import {useAuthStore} from "../../store/auth-store.ts";
 
 // Макет Web Worker для сжатия изображений
 const imageCompressionWorker = new Worker(

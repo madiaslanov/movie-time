@@ -1,4 +1,4 @@
-import {useFavoritesStore} from '../../../store/favorites-store.ts';
+import {useFavoritesStore} from "../../../store/favorites-store.ts";
 
 
 export const useFavorites = () => {

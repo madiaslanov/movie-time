@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuthStore } from '../../store/auth-store.ts';
+
 import styles from './auth.module.css';
+import {useAuthStore} from "../../store/auth-store.ts";
 
 const Login = () => {
     const navigate = useNavigate();

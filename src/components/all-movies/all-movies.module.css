@@ -1,5 +1,3 @@
-/* all-movies.module.css */
-
 .container {
     max-width: 1400px;
     margin: 2rem auto;
@@ -142,4 +140,40 @@
 
 .error {
     color: #e50914;
+}
+
+.searchBar {
+    margin-bottom: 2.5rem;
+    display: flex;
+    justify-content: center;
+}
+
+.searchInput {
+    width: 100%;
+    max-width: 600px;
+    padding: 1rem 1.5rem;
+    font-size: 1.1rem;
+    background-color: #1e1e1e;
+    border: 1px solid #444;
+    border-radius: 8px;
+    color: #e5e5e5;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.searchInput:focus {
+    outline: none;
+    border-color: #e50914;
+    box-shadow: 0 0 10px rgba(229, 9, 20, 0.5);
+}
+
+.noResults {
+    text-align: center;
+    font-size: 1.5rem;
+    color: #888;
+    margin-top: 4rem;
+}
+.movieLink {
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }

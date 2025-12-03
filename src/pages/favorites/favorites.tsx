@@ -3,7 +3,7 @@ import { getMovieDetails } from '../../services/movieService.ts';
 import styles from './favorites.module.css';
 import MovieCard from '../../components/all-movies/movie-card.tsx';
 import type { IMovie } from '../../shared/types/types.ts';
-import {useFavoritesStore} from "../../shared/hooks/useFavorites/useFavorites.ts";
+import {useFavoritesStore} from "../../store/favorites-store.ts";
 
 const Favorites = () => {
     const { favoriteMovieIds } = useFavoritesStore();

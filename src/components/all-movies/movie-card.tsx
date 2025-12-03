@@ -5,7 +5,7 @@ interface MovieCardProps {
     movie: IMovie;
 }
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
+const MovieCard: React.FC<MovieCardProps> = ({movie}) => {
     const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
     const posterUrl = movie.poster_path
@@ -22,7 +22,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
 
     return (
         <div className={styles.movieCard}>
-            <img src={posterUrl} alt={movie.title} className={styles.poster} />
+            <img src={posterUrl} alt={movie.title} className={styles.poster}/>
             <div className={`${styles.rating} ${getRatingColor(Number(rating))}`}>
                 {rating}
             </div>

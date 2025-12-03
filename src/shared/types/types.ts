@@ -19,7 +19,7 @@ export interface LoginForm {
     password: string;
 }
 
-// Тип для формы регистрации
+
 export interface SignupForm {
     email: string;
     password: string;

@@ -8,12 +8,12 @@ import type {IMovie} from "../../../shared/types/types.ts";
 import {useAuthStore} from "../../../store/auth-store.ts";
 
 
-// Компонент для кнопки "Избранное", чтобы избежать лишних ре-рендеров
+
 const FavoriteButton = ({movieId}: { movieId: number }) => {
     const {isFavorite, toggleFavorite} = useFavorites();
     const isAuth = useAuthStore((state) => state.isAuthenticated);
 
-    // Не показываем кнопку, если пользователь не авторизован
+
     if (!isAuth) return null;
 
     return (
@@ -37,7 +37,7 @@ const UpcomingMovies = () => {
 
     return (
         <div className={styles.container}>
-            {movies.map((movie: IMovie) => { // Используем тип IMovie
+            {movies.map((movie: IMovie) => {
                 const isHovered = hoveredId === movie.id;
                 return (
                     <div
@@ -68,7 +68,6 @@ const UpcomingMovies = () => {
                                             >
                                                 Подробнее
                                             </button>
-                                            {/* Отдельный компонент кнопки */}
                                             <FavoriteButton movieId={movie.id}/>
                                         </div>
                                         <p>⭐ {(movie.vote_average).toFixed(1)}</p>

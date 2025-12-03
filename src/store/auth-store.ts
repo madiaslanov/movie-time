@@ -4,17 +4,17 @@ import type {User as FirebaseUser} from 'firebase/auth'; // Импортируе
 interface AuthState {
     isAuthenticated: boolean;
     user: FirebaseUser | null;
-    isLoading: boolean; // Добавим состояние загрузки
+    isLoading: boolean;
     setUser: (user: FirebaseUser | null) => void;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
     isAuthenticated: false,
     user: null,
-    isLoading: true, // Изначально мы не знаем, вошел пользователь или нет
+    isLoading: true,
     setUser: (user) => set({
         user,
         isAuthenticated: !!user,
-        isLoading: false, // Загрузка завершена
+        isLoading: false,
     }),
 }));

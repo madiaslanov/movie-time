@@ -7,7 +7,7 @@ import Pagination from "./pagination.tsx";
 import {useTranslation} from "react-i18next";
 
 const AllMovies = () => {
-    const {t} = useTranslation(); // 2. Инициализируем хук
+    const {t} = useTranslation();
     const [searchParams, setSearchParams] = useSearchParams();
     const currentPage = Number(searchParams.get('page')) || 1;
     const query = searchParams.get('query') || '';
@@ -25,25 +25,25 @@ const AllMovies = () => {
         setSearchParams({page: '1', query: event.target.value});
     };
 
-    // Показываем лоадер только при самой первой загрузке
+
     if (isLoading && !moviesResponse) {
-        return <div className={styles.loader}>{t('allMovies.loading')}</div>; // 3. Переводим текст
+        return <div className={styles.loader}>{t('allMovies.loading')}</div>;
     }
 
     if (error) {
-        return <div className={styles.error}>{t('allMovies.error')}: {error.message}</div>; // 3. Переводим текст
+        return <div className={styles.error}>{t('allMovies.error')}: {error.message}</div>;
     }
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.pageTitle}>{t('allMovies.title')}</h1> {/* 3. Переводим текст */}
+            <h1 className={styles.pageTitle}>{t('allMovies.title')}</h1>
 
             <div className={styles.searchBar}>
                 <input
                     type="text"
                     value={query}
                     onChange={handleSearchChange}
-                    placeholder={t('allMovies.searchPlaceholder')} // 3. Переводим placeholder
+                    placeholder={t('allMovies.searchPlaceholder')}
                     className={styles.searchInput}
                 />
             </div>
@@ -60,7 +60,7 @@ const AllMovies = () => {
                     )}
                 </>
             ) : (
-                <div className={styles.noResults}>{t('allMovies.noMovies')}</div> // 3. Переводим текст
+                <div className={styles.noResults}>{t('allMovies.noMovies')}</div>
             )}
         </div>
     );

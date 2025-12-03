@@ -1,36 +1,38 @@
-
+import React, {useState} from 'react';
 import styles from './profile.module.css';
 import {useAuthStore} from "../../store/auth-store.ts";
+import {uploadAndSetProfilePicture} from '../../services/userService.ts';
 
-// Макет Web Worker для сжатия изображений
 const imageCompressionWorker = new Worker(
     new URL('../../workers/image-compressor.js', import.meta.url)
 );
 
-
 const Profile = () => {
-    const { user, setProfilePicture } = useAuthStore();
+    const {user} = useAuthStore();
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState('');
 
-    const handlePictureUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handlePictureUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-        if (!file) return;
 
-        // Отправляем файл в Web Worker для "сжатия"
+        if (!file || !user) return;
+
+        setIsLoading(true);
+        setError('');
+
         imageCompressionWorker.postMessage(file);
 
-        imageCompressionWorker.onmessage = (event) => {
-            const { compressedFile } = event.data;
-            console.log('Image compressed in worker:', compressedFile);
+        imageCompressionWorker.onmessage = async (event) => {
+            const {compressedFile} = event.data;
 
-            // В реальном приложении:
-            // 1. Загрузить `compressedFile` в Firebase Storage
-            // 2. Получить URL для скачивания
-            // 3. Сохранить URL в Firestore
-            // 4. Обновить состояние с помощью setProfilePicture(downloadURL)
-
-            // Пока что используем локальный URL для демонстрации
-            const localUrl = URL.createObjectURL(compressedFile);
-            setProfilePicture(localUrl);
+            try {
+                await uploadAndSetProfilePicture(compressedFile, user);
+            } catch (err) {
+                console.error(err);
+                setError('Не удалось загрузить изображение. Попробуйте снова.');
+            } finally {
+                setIsLoading(false);
+            }
         };
     };
 
@@ -39,20 +41,24 @@ const Profile = () => {
             <h1>Profile Page</h1>
             <div className={styles.profileCard}>
                 <img
-                    src={user?.profilePicture || '/profile-icon.svg'}
+                    src={user?.photoURL || '/profile-icon.svg'}
                     alt="Profile"
                     className={styles.profileImage}
                 />
                 <h2>{user?.email}</h2>
                 <div className={styles.uploadSection}>
-                    <label htmlFor="picture-upload">Change Profile Picture</label>
+                    <label htmlFor="picture-upload" className={isLoading ? styles.disabledLabel : ''}>
+                        {isLoading ? 'Загрузка...' : 'Сменить фото профиля'}
+                    </label>
                     <input
                         id="picture-upload"
                         type="file"
                         accept="image/png, image/jpeg"
                         onChange={handlePictureUpload}
+                        disabled={isLoading}
                     />
                 </div>
+                {error && <p className={styles.error}>{error}</p>}
             </div>
         </div>
     );

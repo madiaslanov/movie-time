@@ -47,7 +47,7 @@ const PopularMovies = () => {
                                 <img
                                     src={IMAGE_BASE_URL + `${movie.backdrop_path}`}
                                     alt={`Постер фильма ${movie.title}`}
-                                    // 3. Убираем onClick отсюда
+
                                 />
                                 <div className={styles.infoBox}>
                                     <TextCustom size="l" weight="bold">

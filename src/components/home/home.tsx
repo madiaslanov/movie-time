@@ -3,7 +3,7 @@ import styles from "./home.module.css";
 import PopularMovies from "./popular-movies/popular-movies.tsx";
 import UpcomingMovies from "./uncoming-movies/upcoming-movies.tsx";
 import FamousPeople from "./famous-people/famous-people.tsx";
-import {useTranslation} from "react-i18next"; // 1. Импортируем хук
+import {useTranslation} from "react-i18next";
 
 const Home = () => {
     const {t} = useTranslation();

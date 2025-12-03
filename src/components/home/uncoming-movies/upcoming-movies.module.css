@@ -83,16 +83,16 @@
 .descriptionButtons {
     display: flex;
     flex-direction: row;
-    gap: 1rem; /* Уменьшил отступ */
-    align-items: center; /* Выровнял кнопки по центру */
+    gap: 1rem;
+    align-items: center;
 }
 
 .descriptionButtons > button:first-child {
     background-color: rgba(153, 153, 153, 0.3) !important;
-    font-size: 1rem; /* Уменьшил шрифт */
+    font-size: 1rem;
     border-radius: 8px;
     font-weight: bold;
-    padding: 0.75rem 1.5rem; /* Уменьшил паддинг */
+    padding: 0.75rem 1.5rem;
     border: none;
     color: #f1f1f1;
     transition: 0.2s ease-in-out;
@@ -103,15 +103,15 @@
     color: #00050d;
 }
 
-/* === СТИЛИ ДЛЯ КНОПКИ "ИЗБРАННОЕ" === */
+
 .favButton {
     background-color: rgba(153, 153, 153, 0.3) !important;
     font-size: 1.5rem;
-    border-radius: 50%; /* Сделал идеально круглой */
+    border-radius: 50%;
     font-weight: bold;
-    width: 3.5rem; /* Задал фиксированные размеры */
-    height: 3.5rem; /* Задал фиксированные размеры */
-    padding: 0; /* Убрал внутренние отступы */
+    width: 3.5rem;
+    height: 3.5rem;
+    padding: 0;
     border: none;
     color: #f1f1f1;
     transition: 0.2s ease-in-out;
@@ -130,7 +130,7 @@
     color: #e50914;
 }
 
-/* ===================================== */
+
 
 .text h3 {
     font-size: 1.5rem;

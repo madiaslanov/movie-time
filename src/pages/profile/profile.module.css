@@ -49,3 +49,13 @@
 .uploadSection input[type="file"] {
     display: none;
 }
+.uploadSection label.disabledLabel {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+.error {
+    color: #ff6b6b;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+}

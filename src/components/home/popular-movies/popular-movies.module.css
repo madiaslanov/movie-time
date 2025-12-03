@@ -6,13 +6,13 @@
 
 .container {
     display: flex;
-    gap: 1rem; /* Немного уменьшим гэп */
-    /* ✅ ВАЖНО: Добавляем вертикальные отступы, чтобы было место для увеличения */
+    gap: 1rem;
+
     padding: 4rem 1rem;
     width: 100%;
     max-width: 1640px;
     overflow-x: auto;
-    overflow-y: hidden; /* ✅ Прячем вертикальный скроллбар, если он вдруг появится */
+    overflow-y: hidden;
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
@@ -21,19 +21,19 @@
     display: none;
 }
 
-/* ✅ Добавляем стили для Link, чтобы сбросить стандартное поведение */
+
 .movieLink {
     text-decoration: none;
     color: inherit;
     display: block;
-    flex-shrink: 0; /* ✅ Важно для корректной работы в flex-контейнере */
+    flex-shrink: 0;
 }
 
 .movieCard {
     position: relative;
     width: 400px;
     aspect-ratio: 16 / 9;
-    /* Убираем flex-shrink отсюда, так как он теперь на ссылке */
+
 }
 
 .cardContent {
@@ -41,21 +41,21 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%; /* ✅ Задаем высоту, чтобы overflow работал */
+    height: 100%;
     background: #141414;
     border-radius: 0.5rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     transform-origin: center center;
-    /* ✅ Делаем переход более плавным */
+
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     z-index: 5;
-    /* ✅ КЛЮЧЕВОЕ ИСПРАВЛЕНИЕ: Прячем все, что выходит за скругленные углы */
+
     overflow: hidden;
-    display: flex; /* Используем flex для позиционирования infoBox */
+    display: flex;
     flex-direction: column;
 }
 
-.movieLink:hover .cardContent { /* ✅ Применяем hover к Link */
+.movieLink:hover .cardContent {
     transform: scale(1.25);
     z-index: 10;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);

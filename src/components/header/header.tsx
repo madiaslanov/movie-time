@@ -1,13 +1,41 @@
 import style from './header.module.css';
-import {NavLink, useNavigate} from "react-router-dom";
-import {useAuthStore} from "../../store/auth-store.ts";
-import {useTranslation} from "react-i18next";
-import {logoutUser} from '../../services/authService.ts';
+import { NavLink, useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../store/auth-store.ts";
+import { useTranslation } from "react-i18next";
+import { logoutUser } from '../../services/authService.ts';
+import { useState, useEffect } from 'react';
+import apiClient from '../../services/apiClient.ts';
 
 const Header = () => {
     const navigate = useNavigate();
-    const {isAuthenticated, user} = useAuthStore();
-    const {t, i18n} = useTranslation();
+    const { isAuthenticated, user } = useAuthStore();
+    const profilePictureVersion = useAuthStore((state) => state.profilePictureVersion);
+    const { t, i18n } = useTranslation();
+    const [profileIconUrl, setProfileIconUrl] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (isAuthenticated && user) {
+            let objectUrl: string;
+
+            apiClient.get('/users/profile-picture', { responseType: 'blob' })
+                .then(response => {
+                    objectUrl = URL.createObjectURL(response.data);
+                    setProfileIconUrl(objectUrl);
+                })
+                .catch(error => {
+                    console.error("Failed to load profile icon for header", error);
+                    setProfileIconUrl(null);
+                });
+
+            return () => {
+                if (objectUrl) {
+                    URL.revokeObjectURL(objectUrl);
+                }
+            };
+        } else {
+            setProfileIconUrl(null);
+        }
+    }, [isAuthenticated, user, profilePictureVersion]);
 
     const handleLogout = async () => {
         try {
@@ -22,7 +50,7 @@ const Header = () => {
         i18n.changeLanguage(lng);
     };
 
-    const getNavLinkClass = ({isActive}: { isActive: boolean }) => {
+    const getNavLinkClass = ({ isActive }: { isActive: boolean }) => {
         return isActive ? `${style.navLink} ${style.activeLink}` : style.navLink;
     };
 
@@ -38,9 +66,7 @@ const Header = () => {
                 <ul>
                     <li><NavLink to='/' className={getNavLinkClass} end>{t('header.home')}</NavLink></li>
                     <li><NavLink to='/movies' className={getNavLinkClass}>{t('header.movies')}</NavLink></li>
-                    {isAuthenticated && (
-                        <li><NavLink to='/favorites' className={getNavLinkClass}>{t('header.favorites')}</NavLink></li>
-                    )}
+                    <li><NavLink to='/favorites' className={getNavLinkClass}>{t('header.favorites')}</NavLink></li>
                 </ul>
             </div>
             <div className={style.rightSide}>
@@ -52,7 +78,7 @@ const Header = () => {
                 {isAuthenticated ? (
                     <>
                         <button className={style.buttonStyle} onClick={() => navigate('/profile')}>
-                            <img src={user?.photoURL || "/profile-icon.svg"} alt="Profile"
+                            <img src={profileIconUrl || "/profile-icon.svg"} alt="Profile"
                                  className={style.profileIcon}/>
                         </button>
                         <button onClick={handleLogout} className={style.authButton}>{t('header.logout')}</button>

@@ -16,7 +16,7 @@ const Login = () => {
             setIsLoading(true);
             setError('');
             await loginUser({ email, password });
-            navigate('/profile');
+            navigate('/');
         } catch (err: any) {
             setError('Неверный email или пароль.');
         } finally {

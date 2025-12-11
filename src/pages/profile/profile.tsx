@@ -1,20 +1,46 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './profile.module.css';
-import {useAuthStore} from "../../store/auth-store.ts";
-import {uploadAndSetProfilePicture} from '../../services/userService.ts';
+import { useAuthStore } from "../../store/auth-store.ts";
+import { uploadAndSetProfilePicture } from '../../services/userService.ts';
+import apiClient from '../../services/apiClient.ts';
 
 const imageCompressionWorker = new Worker(
     new URL('../../workers/image-compressor.js', import.meta.url)
 );
 
 const Profile = () => {
-    const {user} = useAuthStore();
+    const { user, refreshProfilePicture } = useAuthStore();
+    const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
 
+    const fetchProfilePicture = () => {
+        let objectUrl: string;
+        apiClient.get('/users/profile-picture', { responseType: 'blob' })
+            .then(response => {
+                objectUrl = URL.createObjectURL(response.data);
+                setProfilePicUrl(objectUrl);
+            })
+            .catch(error => {
+                console.error("Could not load profile picture", error);
+                setProfilePicUrl(null);
+            });
+
+        return () => {
+            if (objectUrl) {
+                URL.revokeObjectURL(objectUrl);
+            }
+        };
+    };
+
+    useEffect(() => {
+        if (user) {
+            return fetchProfilePicture();
+        }
+    }, [user]);
+
     const handlePictureUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0];
-
         if (!file || !user) return;
 
         setIsLoading(true);
@@ -23,10 +49,11 @@ const Profile = () => {
         imageCompressionWorker.postMessage(file);
 
         imageCompressionWorker.onmessage = async (event) => {
-            const {compressedFile} = event.data;
-
+            const { compressedFile } = event.data;
             try {
                 await uploadAndSetProfilePicture(compressedFile, user);
+                fetchProfilePicture();
+                refreshProfilePicture();
             } catch (err) {
                 console.error(err);
                 setError('Не удалось загрузить изображение. Попробуйте снова.');
@@ -34,6 +61,12 @@ const Profile = () => {
                 setIsLoading(false);
             }
         };
+
+        imageCompressionWorker.onerror = (err) => {
+            console.error('Worker error:', err);
+            setError('Ошибка при обработке изображения.');
+            setIsLoading(false);
+        }
     };
 
     return (
@@ -41,7 +74,7 @@ const Profile = () => {
             <h1>Profile Page</h1>
             <div className={styles.profileCard}>
                 <img
-                    src={user?.photoURL || '/profile-icon.svg'}
+                    src={profilePicUrl || '/profile-icon.svg'}
                     alt="Profile"
                     className={styles.profileImage}
                 />

@@ -1,35 +1,33 @@
-import {useState} from "react";
-import {IMAGE_BASE_URL} from "../../../shared/ui/image-url.ts";
-import {useUpcomingMovie} from "../../../shared/hooks/useUpcomingMovie/useUpcomingMovie.ts";
-import {useFavorites} from "../../../shared/hooks/useFavorites/useFavorites.ts";
+import { useState } from "react";
+import { IMAGE_BASE_URL } from "../../../shared/ui/image-url.ts";
+import { useUpcomingMovie } from "../../../shared/hooks/useUpcomingMovie/useUpcomingMovie.ts";
 import styles from "./upcoming-movies.module.css";
-import {useNavigate} from "react-router-dom";
-import type {IMovie} from "../../../shared/types/types.ts";
-import {useAuthStore} from "../../../store/auth-store.ts";
+import { useNavigate } from "react-router-dom";
+import type { IMovie } from "../../../shared/types/types.ts";
+import { useAuthStore } from "../../../store/auth-store.ts";
+import { useFavoritesStore } from "../../../store/favorites-store.ts";
 
-
-
-const FavoriteButton = ({movieId}: { movieId: number }) => {
-    const {isFavorite, toggleFavorite} = useFavorites();
-    const isAuth = useAuthStore((state) => state.isAuthenticated);
-
-
-    if (!isAuth) return null;
+const FavoriteButton = ({ movieId }: { movieId: number }) => {
+    const { isFavorite, toggleFavorite } = useFavoritesStore();
+    const { user } = useAuthStore();
 
     return (
         <button
             className={`${styles.favButton} ${isFavorite(movieId) ? styles.isFavorite : ''}`}
-            onClick={() => toggleFavorite(movieId)}
+            onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleFavorite(movieId, user?.uid);
+            }}
         >
             {isFavorite(movieId) ? '❤️' : '🤍'}
         </button>
     );
 };
 
-
 const UpcomingMovies = () => {
     const [hoveredId, setHoveredId] = useState<number | null>(null);
-    const {data: movies, isLoading, isError} = useUpcomingMovie();
+    const { data: movies, isLoading, isError } = useUpcomingMovie();
     const navigate = useNavigate();
 
     if (isLoading) return <div>Loading...</div>;
@@ -68,7 +66,7 @@ const UpcomingMovies = () => {
                                             >
                                                 Подробнее
                                             </button>
-                                            <FavoriteButton movieId={movie.id}/>
+                                            <FavoriteButton movieId={movie.id} />
                                         </div>
                                         <p>⭐ {(movie.vote_average).toFixed(1)}</p>
                                         <p>{movie.release_date}</p>
@@ -82,4 +80,5 @@ const UpcomingMovies = () => {
         </div>
     );
 };
+
 export default UpcomingMovies;

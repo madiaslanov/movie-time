@@ -1,40 +1,64 @@
-# 🎬 Movie Time
+# Movie Time DevOps Project
 
-**Movie Time** — это современное веб-приложение для просмотра фильмов и информации о них.  
-Создано с использованием **React**, **TypeScript**, **Vite**, **TanStack Query**, **Zustand** и **React Router**.
+Movie Time — full-stack учебный проект для практики DevOps:
+- frontend: React + Vite;
+- backend: Express + PostgreSQL;
+- контейнеризация: Docker + Docker Compose;
+- облако: Render blueprint (`render.yaml`);
+- бонусы: Kubernetes, CI/CD, monitoring, HTTPS.
 
----
+## Что реализовано
 
-## 🚀 Основные возможности
+- Dockerfile для frontend (`Dockerfile`) и backend (`backend/Dockerfile`).
+- Отдельный контейнер базы данных PostgreSQL (`docker-compose.yml`).
+- Публичное развертывание через Render (`render.yaml`).
+- CI/CD в GitHub Actions (`.github/workflows/ci-cd.yml`).
+- Kubernetes-манифесты (`deploy/k8s/all-in-one.yaml`).
+- Мониторинг Prometheus + Grafana (`deploy/monitoring/prometheus.yml`).
 
-- 🔥 Просмотр популярных фильмов
-- 🧭 Детальная страница фильма (`/movie/:id`)
-- ⚡ Асинхронная загрузка данных через **TanStack Query**
-- 🧠 Глобальное состояние с **Zustand**
-- 🧩 Чистая архитектура и разделение компонентов
+## Локальный запуск (Docker)
 
----
+1. Скопируй переменные окружения:
+   - `cp .env.example .env`
+2. Заполни:
+   - `VITE_TOKEN` (TMDB bearer token),
+   - `FIREBASE_WEB_API_KEY` (из Firebase проекта).
+3. Запусти:
+   - `docker compose up --build`
+4. Проверь:
+   - App: `http://localhost`
+   - Backend health: `http://localhost/health`
+   - Prometheus: `http://localhost:9090`
+   - Grafana: `http://localhost:3001`
 
-## 🧱 Технологии
+## Облачный деплой (Render)
 
-| Категория | Используемые технологии |
-|------------|--------------------------|
-| Frontend | React 19, TypeScript |
-| Routing | React Router DOM v7 |
-| Data Fetching | TanStack React Query |
-| State Management | Zustand |
-| Build Tool | Vite |
+1. Создай GitHub-репозиторий и запушь код.
+2. В Render выбери **Blueprint** и укажи `render.yaml`.
+3. Добавь environment variables:
+   - `VITE_TOKEN`,
+   - `FIREBASE_WEB_API_KEY`.
+4. Получи публичные URL для frontend и backend.
+5. Для автоматического деплоя создай Deploy Hook и добавь его как секрет `RENDER_DEPLOY_HOOK_URL` в GitHub.
 
----
+## CI/CD
 
-# 1. Клонируй репозиторий
-git clone https://github.com/username/movie-time.git
+Workflow `.github/workflows/ci-cd.yml`:
+- на PR/Push запускает build frontend;
+- собирает Docker-образы frontend/backend;
+- на main/master триггерит deploy hook Render.
 
-# 2. Перейди в папку проекта
-cd movie-time
+## Kubernetes
 
-# 3. Установи зависимости
-npm install
+Манифест `deploy/k8s/all-in-one.yaml` содержит:
+- Namespace,
+- Deployments/Services для frontend/backend/postgres,
+- HPA для backend,
+- Ingress с TLS (HTTPS).
 
-# 4. Запусти проект в режиме разработки
-npm run dev
+Применение:
+- `kubectl apply -f deploy/k8s/all-in-one.yaml`
+
+## Отчет
+
+Готовый отчет для сдачи: `REPORT.md` (2-4 страницы в markdown формате).

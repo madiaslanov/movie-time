@@ -1,95 +1,95 @@
-# Отчет по проекту развертывания Movie Time
+# Movie Time Deployment Project Report
 
-## 1. Цель и постановка задачи
+## 1. Goal and Problem Statement
 
-Цель проекта — реализовать полный цикл DevOps-практики:
-- разработать рабочее веб-приложение;
-- упаковать его в Docker-контейнеры;
-- развернуть в облаке;
-- обеспечить публичный URL;
-- документировать архитектуру и пайплайн развертывания.
+The goal of the project is to implement a full DevOps practice cycle:
+- develop a working web application;
+- package it into Docker containers;
+- deploy it to the cloud;
+- provide a public URL;
+- document the architecture and deployment pipeline.
 
-В качестве приложения выбран Movie Time: frontend на React/Vite и backend API на Node.js/Express с PostgreSQL.
+The application chosen is Movie Time: frontend on React/Vite and backend API on Node.js/Express with PostgreSQL.
 
-## 2. Архитектура решения
+## 2. Solution Architecture
 
-Система состоит из трех основных сервисов:
-1. Frontend (React + Vite + Nginx) — UI, маршрутизация, интеграция с TMDB API.
-2. Backend (Express) — API для пользовательских данных: синхронизация пользователя, избранные фильмы, фото профиля.
-3. PostgreSQL — хранение профиля пользователя и списка избранных фильмов.
+The system consists of three main services:
+1. Frontend (React + Vite + Nginx) - UI, routing, integration with TMDB API.
+2. Backend (Express) - API for user data: user synchronization, favorite movies, profile photo.
+3. PostgreSQL - storage for user profile and favorite movies list.
 
-Дополнительно включены:
-- Prometheus + Grafana для мониторинга;
-- CI/CD в GitHub Actions;
-- Kubernetes-манифесты с Ingress и HPA.
+Additionally included:
+- Prometheus + Grafana for monitoring;
+- CI/CD in GitHub Actions;
+- Kubernetes manifests with Ingress and HPA.
 
-Потоки данных:
-- Пользователь открывает frontend и проходит Firebase аутентификацию.
-- Frontend отправляет Firebase ID token в backend (Bearer token).
-- Backend валидирует токен через Firebase Identity Toolkit API.
-- Backend сохраняет/читает пользовательские данные в PostgreSQL.
+Data flows:
+- The user opens the frontend and completes Firebase authentication.
+- Frontend sends Firebase ID token to backend (Bearer token).
+- Backend validates the token through Firebase Identity Toolkit API.
+- Backend stores/reads user data in PostgreSQL.
 
-## 3. Контейнеризация
+## 3. Containerization
 
-Реализованы Docker-образы:
+Implemented Docker images:
 - `Dockerfile` (frontend, multi-stage: build + nginx runtime),
 - `backend/Dockerfile` (backend runtime).
 
-Для локальной оркестрации используется `docker-compose.yml`:
+For local orchestration, `docker-compose.yml` is used:
 - `frontend`,
 - `backend`,
 - `db` (PostgreSQL),
 - `prometheus`,
 - `grafana`.
 
-Проверка работоспособности:
-- Приложение: `http://localhost`
-- Health backend: `http://localhost/health`
-- Метрики: `http://localhost:9090`
+Health checks:
+- Application: `http://localhost`
+- Backend health: `http://localhost/health`
+- Metrics: `http://localhost:9090`
 - Grafana: `http://localhost:3001`
 
-## 4. Облачное развертывание
+## 4. Cloud Deployment
 
-Для облака подготовлен `render.yaml` (Blueprint):
+For cloud deployment, `render.yaml` (Blueprint) is prepared:
 - web service `movie-time-frontend`,
 - web service `movie-time-backend`,
 - managed PostgreSQL `movie-time-postgres`.
 
-Render автоматически предоставляет публичные HTTPS URL, что покрывает:
-- требование доступности онлайн,
-- требование публичного URL.
+Render automatically provides public HTTPS URLs, which covers:
+- online availability requirement,
+- public URL requirement.
 
 ## 5. CI/CD
 
-Workflow `.github/workflows/ci-cd.yml` выполняет:
-1. Сборку frontend.
-2. Сборку Docker-образов frontend и backend.
-3. Авто-триггер деплоя в Render через deploy hook.
+Workflow `.github/workflows/ci-cd.yml` performs:
+1. Frontend build.
+2. Frontend and backend Docker image builds.
+3. Auto-triggered deployment to Render via deploy hook.
 
-Это позволяет реализовать непрерывную интеграцию и непрерывную доставку.
+This makes it possible to implement continuous integration and continuous delivery.
 
-## 6. Бонусные требования
+## 6. Bonus Requirements
 
-Реализованы следующие дополнительные пункты:
+The following additional items are implemented:
 - Kubernetes deployment (`deploy/k8s/all-in-one.yaml`);
 - CI/CD (GitHub Actions);
-- отдельный контейнер базы данных (PostgreSQL в Docker Compose/K8s);
-- мониторинг (Prometheus + Grafana);
-- HTTPS (через Render и TLS Ingress в Kubernetes);
-- load balancing (реплики backend/frontend и Kubernetes Service + HPA).
+- separate database container (PostgreSQL in Docker Compose/K8s);
+- monitoring (Prometheus + Grafana);
+- HTTPS (via Render and TLS Ingress in Kubernetes);
+- load balancing (backend/frontend replicas and Kubernetes Service + HPA).
 
-Частично подготовлена база для микросервисного подхода:
-- frontend, backend и БД разделены на независимые сервисы.
+A foundation for a microservices approach is partially prepared:
+- frontend, backend, and database are separated into independent services.
 
-Service mesh не включен в базовый контур, но может быть добавлен через Istio/Linkerd.
+Service mesh is not included in the base setup, but can be added via Istio/Linkerd.
 
-## 7. Итог
+## 7. Final Result
 
-Проект покрывает минимальные требования:
-- приложение запускается в Docker;
-- приложение может быть развернуто в облаке;
-- предусмотрен публичный URL;
-- исходный код хранится в Git-репозитории;
-- Dockerfile и документация подготовлены.
+The project covers the minimum requirements:
+- the application runs in Docker;
+- the application can be deployed to the cloud;
+- a public URL is provided;
+- source code is stored in a Git repository;
+- Dockerfile and documentation are prepared.
 
-В результате получен практический DevOps-пайплайн, пригодный для демонстрации на защите и дальнейшего расширения.
+As a result, a practical DevOps pipeline was built, suitable for defense presentation and further extension.

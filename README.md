@@ -1,64 +1,72 @@
 # Movie Time DevOps Project
 
-Movie Time — full-stack учебный проект для практики DevOps:
+Movie Time is a full-stack educational project for practicing DevOps:
 - frontend: React + Vite;
 - backend: Express + PostgreSQL;
-- контейнеризация: Docker + Docker Compose;
-- облако: Render blueprint (`render.yaml`);
-- бонусы: Kubernetes, CI/CD, monitoring, HTTPS.
+- containerization: Docker + Docker Compose;
+- cloud: Vercel (frontend) + Render/Railway (backend);
+- bonuses: Kubernetes, CI/CD, monitoring, HTTPS.
 
-## Что реализовано
+## What Is Implemented
 
-- Dockerfile для frontend (`Dockerfile`) и backend (`backend/Dockerfile`).
-- Отдельный контейнер базы данных PostgreSQL (`docker-compose.yml`).
-- Публичное развертывание через Render (`render.yaml`).
-- CI/CD в GitHub Actions (`.github/workflows/ci-cd.yml`).
-- Kubernetes-манифесты (`deploy/k8s/all-in-one.yaml`).
-- Мониторинг Prometheus + Grafana (`deploy/monitoring/prometheus.yml`).
+- Dockerfile for frontend (`Dockerfile`) and backend (`backend/Dockerfile`).
+- Separate PostgreSQL database container (`docker-compose.yml`).
+- Public deployment via Vercel (frontend) and Render/Railway (backend).
+- CI/CD in GitHub Actions (`.github/workflows/ci-cd.yml`).
+- Kubernetes manifests (`deploy/k8s/all-in-one.yaml`).
+- Prometheus + Grafana monitoring (`deploy/monitoring/prometheus.yml`).
 
-## Локальный запуск (Docker)
+## Local Run (Docker)
 
-1. Скопируй переменные окружения:
+1. Copy environment variables:
    - `cp .env.example .env`
-2. Заполни:
+2. Fill in:
    - `VITE_TOKEN` (TMDB bearer token),
-   - `FIREBASE_WEB_API_KEY` (из Firebase проекта).
-3. Запусти:
+   - `FIREBASE_WEB_API_KEY` (from your Firebase project).
+3. Run:
    - `docker compose up --build`
-4. Проверь:
+4. Verify:
    - App: `http://localhost`
    - Backend health: `http://localhost/health`
    - Prometheus: `http://localhost:9090`
    - Grafana: `http://localhost:3001`
 
-## Облачный деплой (Render)
+## Cloud Deploy (Vercel, free-friendly)
 
-1. Создай GitHub-репозиторий и запушь код.
-2. В Render выбери **Blueprint** и укажи `render.yaml`.
-3. Добавь environment variables:
+1. Create a GitHub repository and push the code.
+2. Create a Vercel project for the frontend (root of this repo).
+3. Add frontend environment variables in Vercel:
    - `VITE_TOKEN`,
-   - `FIREBASE_WEB_API_KEY`.
-4. Получи публичные URL для frontend и backend.
-5. Для автоматического деплоя создай Deploy Hook и добавь его как секрет `RENDER_DEPLOY_HOOK_URL` в GitHub.
+   - `VITE_API_BASE_URL` (set to your backend public URL + `/api`, for example `https://your-backend.example.com/api`).
+4. Deploy backend separately on Render/Railway with:
+   - `DATABASE_URL`,
+   - `FIREBASE_WEB_API_KEY`,
+   - `PORT=8080`.
+5. Add GitHub Actions secrets for CI deploy to Vercel:
+   - `VERCEL_TOKEN`,
+   - `VERCEL_ORG_ID`,
+   - `VERCEL_PROJECT_ID`,
+   - `VITE_TOKEN`,
+   - `VITE_API_BASE_URL`.
 
 ## CI/CD
 
 Workflow `.github/workflows/ci-cd.yml`:
-- на PR/Push запускает build frontend;
-- собирает Docker-образы frontend/backend;
-- на main/master триггерит deploy hook Render.
+- runs frontend build on PR/Push;
+- builds frontend/backend Docker images;
+- deploys frontend to Vercel on main/master (when Vercel secrets are configured).
 
 ## Kubernetes
 
-Манифест `deploy/k8s/all-in-one.yaml` содержит:
+Manifest `deploy/k8s/all-in-one.yaml` includes:
 - Namespace,
-- Deployments/Services для frontend/backend/postgres,
-- HPA для backend,
-- Ingress с TLS (HTTPS).
+- Deployments/Services for frontend/backend/postgres,
+- HPA for backend,
+- Ingress with TLS (HTTPS).
 
-Применение:
+Apply:
 - `kubectl apply -f deploy/k8s/all-in-one.yaml`
 
-## Отчет
+## Report
 
-Готовый отчет для сдачи: `REPORT.md` (2-4 страницы в markdown формате).
+Final report for submission: `REPORT.md` (2-4 pages in markdown format).

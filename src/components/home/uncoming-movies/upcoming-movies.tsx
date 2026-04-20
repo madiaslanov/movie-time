@@ -4,12 +4,10 @@ import { useUpcomingMovie } from "../../../shared/hooks/useUpcomingMovie/useUpco
 import styles from "./upcoming-movies.module.css";
 import { useNavigate } from "react-router-dom";
 import type { IMovie } from "../../../shared/types/types.ts";
-import { useAuthStore } from "../../../store/auth-store.ts";
 import { useFavoritesStore } from "../../../store/favorites-store.ts";
 
 const FavoriteButton = ({ movieId }: { movieId: number }) => {
     const { isFavorite, toggleFavorite } = useFavoritesStore();
-    const { user } = useAuthStore();
 
     return (
         <button
@@ -17,7 +15,7 @@ const FavoriteButton = ({ movieId }: { movieId: number }) => {
             onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
-                toggleFavorite(movieId, user?.uid);
+                toggleFavorite(movieId);
             }}
         >
             {isFavorite(movieId) ? '❤️' : '🤍'}

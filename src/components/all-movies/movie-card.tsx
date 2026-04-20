@@ -1,7 +1,6 @@
 import styles from "./all-movies.module.css";
 import type { IMovie } from "../../shared/types/types.ts";
 import { useFavoritesStore } from "../../store/favorites-store.ts";
-import { useAuthStore } from "../../store/auth-store.ts";
 import { Link } from "react-router-dom";
 
 interface MovieCardProps {
@@ -11,14 +10,13 @@ interface MovieCardProps {
 const MovieCard: React.FC<MovieCardProps> = ({ movie }) => {
     const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
-    const { user } = useAuthStore();
     const { toggleFavorite, isFavorite } = useFavoritesStore();
     const isFav = isFavorite(movie.id);
 
     const handleToggleFavorite = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        toggleFavorite(movie.id, user?.uid);
+        toggleFavorite(movie.id);
     };
 
     const posterUrl = movie.poster_path
